@@ -1,1 +1,30 @@
 <!-- home page, can be viewed not logged in -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental Service</title>
+</head>
+
+<body>
+    <h1>Welcome to our Car Rental Service</h1>
+
+    {{#if cars}}
+    <h2>Available Cars</h2>
+    <ul>
+        {{#each cars}}
+        <li>{{this.make}} {{this.model}} - {{this.year}}</li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p>No cars available at the moment.</p>
+    {{/if}}
+
+    <h2>Contact Information</h2>
+    <p>Phone: 123-456-7890</p>
+    <p>Email: info@carrentalservice.com</p>
+</body>
+
+</html>
