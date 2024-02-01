@@ -9,7 +9,6 @@ const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-
 const sessionConfig = {
   secret: process.env.SECRET,
   cookie: { maxAge: 300000 }, 
