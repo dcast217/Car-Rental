@@ -6,3 +6,5 @@ router.get('*', async (req, res) => {
 
     res.status(500).json({message: 'invalid route'})
 });
+
+module.exports = router;
