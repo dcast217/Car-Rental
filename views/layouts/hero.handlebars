@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torq - Reserve a peice of luxury</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: system-ui, sans-serif; }
+        h1 { font-family: 'Orbitron', sans-serif; }
+        .card-columns {
+            @include media-breakpoint-only(lg) { column-count: 4; }
+        }
+    </style>
+</head>
+
+<body class="m-0 p-0">
+
+{{> navigation this}}
+
+<section id="hero" class="container-fluid p-5 m-0" style="background-image: url('./assets/img/car-photo-header-75.png'); background-size: cover; background-position: center left;">
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <h2 class="font-weight-bold text-white">Thrill Seeking<br />or Midlife Crisis.</h2>
+            <small class="text-muted">We're here for you either way. Enjoy a bit of luxury when you rent from our fleet of
+                high-end sports cars.</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <button class="btn btn-warning btn-xl mt-5">Create a FREE account</button><br />
+            <small>No credit card required.</small>
+        </div>
+    </div>
+</section>
+
+    {{{body}}}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+<footer>
+<!-- put the footer here -->
+</footer>
+
+</body>
+</html>
