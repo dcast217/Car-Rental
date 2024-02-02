@@ -9,7 +9,7 @@ router.get('/profile', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    res.render('home', {layout: 'main'});
+    res.render('home', {layout: 'hero'});
 });
 
 // Catch all for routing
