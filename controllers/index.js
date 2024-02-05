@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const apiRoutes = require('./api/index.js')
-
+const sequelize = require('../config/connection.js');
+const { NOW } = require('sequelize');
+const { Location, User, Vehicle, Reservation } = require('../models');
 //API request go to API file
-router.use('/api', apiRoutes)
 
 router.get('/profile', async (req, res) => {
     res.render('dashboard', {layout: 'main'});
@@ -19,13 +19,14 @@ router.get('/login', (req, res) => {
 });
 
 
-// Set up your route
-router.get('/vehicles', (req, res) => {
-  const carData = [
-    // Vehicle data goes here
-  ];
-  
-  res.render('vehicles', { vehicles: carData });
+
+router.get('/vehicles', async (req, res) => {
+  const dbVehicleData = await Vehicle.findAll()
+  const vehicleData = dbVehicleData.map((data) => data.get({plain: true}))
+  console.log(vehicleData)
+  vehicleData===null
+      ? res.render('home', {message: 'Invalid vehicle id', layout: 'error' })
+      : res.render('home', {vehicleData})
 });
 
 // Handle form submission
