@@ -8,7 +8,7 @@ const Reservation = require('./reservation');
  User.belongsTo(Location, { foreignKey: 'location_id' });
  Location.hasMany(User, { foreignKey: 'id' })
 
- Vehicle.hasOne(Location, { foreignKey: 'id' })
+ Vehicle.belongsTo(Location, { foreignKey: 'location_id' })
  Location.hasMany(Vehicle, { foreignKey: 'location_id' })
  
 Reservation.belongsTo(User, {foreignKey: 'user_id'})
