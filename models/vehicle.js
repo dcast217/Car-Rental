@@ -33,13 +33,4 @@ Vehicle.init({
     underscored: true,
     modelName: 'vehicle',
   });
-  },
-  {
-    sequelize,
-    timestamps: true,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'vehicle',
-  });
-
 module.exports = Vehicle;
