@@ -8,7 +8,7 @@ router.get('/profile', async (req, res) => {
     res.render('dashboard', {layout: 'main'});
 });
 
-router.get('/', async (req, res) => {
+router.use('/', async (req, res) => {
     res.render('home', {layout: 'hero'});
 });
 
