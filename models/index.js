@@ -8,7 +8,9 @@ const Reservation = require('./reservation');
  User.belongsTo(Location, { foreignKey: 'location_id' });
  Location.hasMany(User, { foreignKey: 'id' })
 
- Vehicle.hasOne(Location, { foreignKey: 'vehicle_id' })
- Location.hasMany(Vehicle, { foreignKey: 'id' })
+ Vehicle.hasOne(Location, { foreignKey: 'id' })
+ Location.hasMany(Vehicle, { foreignKey: 'location_id' })
  
-module.exports = { User, Location, Vehicle };
+
+
+module.exports = { User, Location, Vehicle, Reservation };

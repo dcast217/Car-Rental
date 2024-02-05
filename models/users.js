@@ -28,6 +28,10 @@ User.init({
     type: DataTypes.DATE,
     allowNull: true,
   },
+  location_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
   address: {
     type: DataTypes.STRING,
   },

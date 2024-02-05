@@ -6,12 +6,12 @@ const seedLocation = require('./locationData.js');
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
-  await seedUser();
-  console.log('----- Seed User -----')
-  await seedVehicle();
-  console.log('----- Seed Vehicle -----')
   await seedLocation();
   console.log('----- Seed Location -----')
+  await seedVehicle();
+  console.log('----- Seed Vehicle -----')
+  await seedUser();
+  console.log('----- Seed User -----')
 
   process.exit(0);
 };
