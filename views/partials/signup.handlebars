@@ -1,9 +1,39 @@
+<h3 class="my-3">
+  Sign up below!
+</h3>
+
+
 <form action="/signup" method="POST">
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" required>
+  <div class="form-group">
+    <label for="name">First & Last Name:</label>
+    <input type="text" id="name" name="name" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="email">E-Mail Address:</label>
+    <input type="text" id="email" name="email" class="form-control" required>
+  </div>
   
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required>
-  
-  <button type="submit">Sign Up</button>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <div>
+      <label for="dob">Date Of Birth:</label>
+      <input type="text" id="dob" name="dob" class="form-control" required>
+    </div>
+  <br />
+    <div>
+      <label for="locale">Home Location:</label>
+        <select>
+          <option>Location 1</option>
+          <option>Location 2</option>
+        </select>
+    </div>
+  </div>
+
+   
+  <button type="submit" class="btn btn-warning btn-xl mt-3">Sign Up</button>
 </form>

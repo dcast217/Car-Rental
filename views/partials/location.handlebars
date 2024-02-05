@@ -1,8 +1,9 @@
 <div class="container">
   {{#each locData as |loc|}}
-  <p>
-    {{name}}<br />
-    {{address}}
+    <p>
+      <a href="/location/{{id}}">{{name}}</a><br />
+      {{address}}
+    </p>
   {{/each}}
-  </p>
+  
 </div>

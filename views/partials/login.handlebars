@@ -1,10 +1,13 @@
-
 <form action="/login" method="POST">
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" required>
+  <div class="form-group">
+    <label for="email">E-Mail:</label>
+    <input type="text" id="email" name="email" class="form-control" required>
+  </div>
   
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required>
-  
-  <button type="submit">Login</button>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" class="form-control" required>
+  </div>
+   
+  <button type="submit" class="btn btn-warning btn-xl mt-3">Login</button>
 </form>

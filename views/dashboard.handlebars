@@ -2,12 +2,12 @@
 
 <div class="container">
     <br />
-    <h3>Welcome {{userData.name}}!</h3>
+    <h3>Welcome {{userData.name}}! - <a href="/reservation/{{userData.id}}">View Reservations</a></h3>
 
-    <p>Review your information below: 
-        <br />Address: {{userData.address}}
-        <br />DOB: {{format_date userData.dob}}
-        <br />Home Location: {{userData.location.name}}
+    <p>Review your information below
+        <br /><strong>Address</strong>: {{userData.address}}
+        <br /><strong>DOB</strong>: {{format_date userData.dob}}
+        <br /><strong>Home Location</strong>: <a href="./location/{{userData.location.id}}">{{userData.location.name}}</a>
     </p>
 
 </div>

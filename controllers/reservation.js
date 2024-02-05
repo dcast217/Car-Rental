@@ -2,10 +2,10 @@ const router = require('express').Router();
 const { NOW } = require('sequelize');
 const { Location, User, Vehicle, Reservation } = require('../models');
 
-// RESERVATION: Get Reservation by ID
-router.get('/reservation/:id', async (req, res) => {
-    const dbData = await Reservation.findOne({
-        where: { id: req.params.id },
+// RESERVATION: Get Reservation(s) by User ID
+router.get('/:id', async (req, res) => {
+    const dbReservationData = await Reservation.findAll({
+        where: { user_id: req.params.id },
         attributes: ['id', 'check_out', 'check_in'],
         include: [{
             model: User,
@@ -21,19 +21,21 @@ router.get('/reservation/:id', async (req, res) => {
         }]
     })
 
-    dbData===null 
-        ? res.status(400).json({ message: 'Invalid reservation id' })
-        : res.status(200).json(dbData)
+    const reservationData = dbReservationData.map((data) => data.get({ plain: true }));
+    console.log(reservationData)
+    reservationData===null 
+        ? res.render('home', {message: 'No reservations found.', layout: 'error' })
+        : res.render('reservation', {reservationData, layout: 'main'})
 })
 
 
 // RESERVATION: Update Reservation
-router.put('/reservation/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     
 })
 
 // RESERVATION: Delete Reservation
-router.delete('/reservation/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const dbReservation = await Reservation.destroy({
         where: { id: req.params.id }
     })
@@ -45,7 +47,7 @@ router.delete('/reservation/:id', async (req, res) => {
 })
 
 // RESERVATION : Create Reservation
-router.post('/reservation', async (req, res) => {
+router.post('', async (req, res) => {
 const dbData = await Reservation.create(req.body)    
 
 res.status(200).json(dbData)

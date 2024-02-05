@@ -78,7 +78,7 @@ router.get('/reservations', async (req, res) => {
         const dbUserData = await User.findByPk(1, {
             include: {
                 model: Location,
-                attributes: ['name']
+                attributes: ['id', 'name']
             },
             attributes: {
                 exclude: ['password']
@@ -86,8 +86,16 @@ router.get('/reservations', async (req, res) => {
         })
         const userData = dbUserData.get({plain: true});
 
+        const dbReservationData = await Reservation.findOne({
+            where: {
+                user_id: 1
+            }
+        })
+
+        const reservationData = dbReservationData.get({plain: true});
+
         //set authenticated to saved session variable for true/false - Navigation partial shows 'Account' or 'Login'
-        res.render('dashboard', { userData, authenticated: true, layout: 'main'});
+        res.render('dashboard', { userData, reservationData, authenticated: true, layout: 'main'});
     });
 // END PROFILE(DASHBOARD) ROUTE
 
@@ -103,14 +111,14 @@ router.get('/reservations', async (req, res) => {
 // LOGIN ROUTE
 router.get('/login', async (req, res) => {
 
-    res.render('form', { form: 'login', layout: 'main'});
+    res.render('form', { form: true, layout: 'main'});
 });
 // END LOGIN ROUTE
 
 // SIGNUP ROUTE
 router.get('/signup', async (req, res) => {
 
-    res.render('form', {form: 'signup', layout: 'main'});
+    res.render('form', {form: false, layout: 'main'});
 });
 // END SIGNUP ROUTE
 
