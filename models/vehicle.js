@@ -25,7 +25,14 @@ Vehicle.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   }
-
+  },
+  {
+    sequelize,
+    timestamps: true,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'vehicle',
+  });
   },
   {
     sequelize,

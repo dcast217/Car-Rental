@@ -39,10 +39,6 @@ User.init({
       msg: 'Password must be 6 characters or greater.'
     },
   },
-  location_id: {
-    type: DataTypes.INTEGER,
-    allowNull: true
-  }
   }, 
   {
     sequelize,
