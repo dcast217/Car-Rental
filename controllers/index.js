@@ -41,6 +41,7 @@ router.use('/api', apiRoutes)
 // END HOMEPAGE ROUTE
 
 
+
 // LOGIN ROUTE
 router.get('/login', async (req, res) => {
 
@@ -56,11 +57,25 @@ router.get('/signup', async (req, res) => {
 });
 // END SIGNUP ROUTE
 
-
 // CATCH ALL FOR ROUTING
     router.get('*', (req, res) => {
         res.render('home', { layout: 'error' })
     });
 // END CATCH ALL
+
+// Route to render the login form
+app.get('/login', (req, res) => {
+  res.render('form', {form: 'login', layout: 'main'});
+});
+
+// Handle form submission
+app.post('/signup', (req, res) => {
+  const { username, password } = req.body;
+  
+  // Perform authentication logic here
+  
+  // Redirect to a different page after successful login
+  res.render('form', {form: 'signup', layout: 'main'});
+});
 
 module.exports = router;

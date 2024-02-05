@@ -11,6 +11,4 @@ const Reservation = require('./reservation');
  Vehicle.hasOne(Location, { foreignKey: 'vehicle_id' })
  Location.hasMany(Vehicle, { foreignKey: 'id' })
  
-
- 
 module.exports = { User, Location, Vehicle };
