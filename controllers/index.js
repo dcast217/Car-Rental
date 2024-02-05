@@ -3,7 +3,6 @@ const sequelize = require('../config/connection.js');
 const apiRoutes = require('./api/index.js')
 const { User, Location, Vehicle } = require('../models');
 
-
 //API request go to API file
 router.use('/api', apiRoutes)
 
@@ -45,7 +44,7 @@ router.use('/api', apiRoutes)
 // LOGIN ROUTE
 router.get('/login', async (req, res) => {
 
-    res.render('home', { authenticated: false, layout: 'main'});
+    res.render('form', { form: 'login', layout: 'main'});
 });
 // END LOGIN ROUTE
 
@@ -53,7 +52,7 @@ router.get('/login', async (req, res) => {
 // SIGNUP ROUTE
 router.get('/signup', async (req, res) => {
 
-    res.render('home', { authenticated: false, layout: 'main'});
+    res.render('form', {form: 'signup', layout: 'main'});
 });
 // END SIGNUP ROUTE
 
@@ -62,20 +61,5 @@ router.get('/signup', async (req, res) => {
         res.render('home', { layout: 'error' })
     });
 // END CATCH ALL
-
-// Route to render the login form
-app.get('/login', (req, res) => {
-  res.render('form', {form: 'login', layout: 'main'});
-});
-
-// Handle form submission
-app.post('/signup', (req, res) => {
-  const { username, password } = req.body;
-  
-  // Perform authentication logic here
-  
-  // Redirect to a different page after successful login
-  res.render('form', {form: 'signup', layout: 'main'});
-});
 
 module.exports = router;

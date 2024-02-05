@@ -9,10 +9,6 @@ Reservation.init({
     primaryKey: true,
     autoIncrement: true
   },
-  brand: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
   location_id: {
     type: DataTypes.INTEGER,
     allowNull: false
@@ -20,6 +16,12 @@ Reservation.init({
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  check_out: {
+    type: DataTypes.DATE
+  },
+  check_in: {
+    type: DataTypes.DATE
   }
   },
   {

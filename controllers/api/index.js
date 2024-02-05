@@ -5,7 +5,11 @@ const { Location, User, Vehicle } = require('../../models');
 // API GET SINGLE VEHICLE
     router.get('/vehicle/:id', async (req, res) => {
         const dbVehicleData = await Vehicle.findOne({
-            where: { id: req.params.id }
+            where: { id: req.params.id },
+            include: {
+                model: Location,
+                attributes: ['name', 'address']
+            }
         })
 
         dbVehicleData===null 
@@ -16,7 +20,11 @@ const { Location, User, Vehicle } = require('../../models');
 // API GET SINGLE LOCATION
     router.get('/location/:id', async (req, res) => {
         const dbLocationData = await Location.findOne({
-            where: { id: req.params.id }
+            where: { id: req.params.id },
+            include: { 
+                model: Vehicle,
+                attributes: ['brand', 'model', 'year']
+            }
         })
 
         dbLocationData===null 
