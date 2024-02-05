@@ -4,12 +4,14 @@ const reservationData = [
   {
     "location_id": 1,
     "user_id": 1,
+    "vehicle_id": 1,
     "check_out": '2024-02-06',
     "check_in": '2024-02-10'
   },
   {
     "location_id": 2,
     "user_id": 1,
+    "vehicle_id": 2,
     "check_out": '2024-02-07',
     "check_in": '2024-02-12'
   },
