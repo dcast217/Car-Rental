@@ -26,28 +26,6 @@ router.get('/reservation/:id', async (req, res) => {
         : res.status(200).json(dbData)
 })
 
-// RESERVATION: Get Reservation(s)
-router.get('/reservation', async (req, res) => {
-    const dbData = await Reservation.findAll({
-        attributes: ['id', 'check_out', 'check_in'],
-        include: [{
-            model: User,
-            attributes: ['name'],
-        },
-        {
-            model: Vehicle, 
-            attributes: ['brand', 'model', 'year']
-        },
-        {
-            model: Location,
-            attributes: ['name', 'address']
-        }]
-    })
-
-    dbData===null 
-    ? res.status(400).json({ message: 'Invalid reservation id' })
-    : res.status(200).json(dbData)
-})
 
 // RESERVATION: Update Reservation
 router.put('/reservation/:id', async (req, res) => {

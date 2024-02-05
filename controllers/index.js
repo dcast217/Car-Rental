@@ -8,10 +8,62 @@ const userRoute = require('./user.js');
 const reservationRoute = require('./reservation.js');
 
 
-router.get('/location', locationRoute)
-router.get('/user', userRoute)
-router.get('/vehicles', vehicleRoute)
-router.get('/reservation', reservationRoute)
+router.use('/location', locationRoute)
+router.use('/user', userRoute)
+router.use('/vehicle', vehicleRoute)
+router.use('/reservation', reservationRoute)
+
+//Show All Vehicles Route
+router.get('/vehicles', async (req, res) => {
+    const dbVehicleData = await Vehicle.findAll()
+    const vehicleData = dbVehicleData.map((data) => data.get({plain: true}))
+
+    console.log(vehicleData)
+    vehicleData===null 
+        ? res.render('home', {message: 'Invalid vehicle id', layout: 'error' })
+        : res.render('vehicle', {vehicleData, layout: 'main'})
+});
+//END show all vehicles
+
+
+// API GET ALL LOCATIONS
+router.get('/locations', async (req, res) => {
+    const dbLocationData = await Location.findAll({
+        include: { 
+            model: Vehicle,
+            attributes: ['brand', 'model', 'year']
+        }
+    })
+
+    dbLocationData===null 
+        ? res.status(400).json({ message: 'Invalid location id' })
+        : res.status(200).json(dbLocationData)
+});
+
+
+// RESERVATION: Get Reservation(s)
+router.get('/reservation', async (req, res) => {
+    const dbData = await Reservation.findAll({
+        attributes: ['id', 'check_out', 'check_in'],
+        include: [{
+            model: User,
+            attributes: ['name'],
+        },
+        {
+            model: Vehicle, 
+            attributes: ['brand', 'model', 'year']
+        },
+        {
+            model: Location,
+            attributes: ['name', 'address']
+        }]
+    })
+
+    dbData===null 
+    ? res.status(400).json({ message: 'Invalid reservation id' })
+    : res.status(200).json(dbData)
+})
+
 
 // PROFILE(DASHBOARD) ROUTE
     router.get('/profile', async (req, res) => {
