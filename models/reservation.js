@@ -11,11 +11,27 @@ Reservation.init({
   },
   location_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'location',
+      key: 'id'
+    }
   },
   user_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'user',
+      key: 'id'
+    }
+  },
+  vehicle_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'vehicle',
+      key: 'id'
+    }
   },
   check_out: {
     type: DataTypes.DATE
