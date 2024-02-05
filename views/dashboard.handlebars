@@ -1,2 +1,13 @@
 <!-- User profile when they log in -->
-{{> navigation}}
+
+<div class="container">
+    <br />
+    <h3>Welcome {{userData.name}}!</h3>
+
+    <p>Review your information below: 
+        <br />Address: {{userData.address}}
+        <br />DOB: {{format_date userData.dob}}
+        <br />Home Location: {{userData.location.name}}
+    </p>
+
+</div>

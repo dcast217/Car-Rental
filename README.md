@@ -1,7 +1,21 @@
 # Car-Rental
 
-## User Story
-As a Customer I want to be able to rent a nice sports car so that I can get around quickly 
-As a Cusotmer I want to have a nice car to drive that's fast
+We are a car rental service specializing in sports car/luxury rentals.
+Users can select date(s) for rentals and filter by make, model, and top speed.
 
-## Acceptance Criteria
+# Installation
+
+```bash
+git clone git@github.com:dcast217/Car-Rental.git
+```
+
+## Usage
+
+First, run `npm i` to install NPM packages. Next, run `npm start` to startup the server. Navigate to http://localhost:3001 in your browser of choice to view the site.
+
+# Contributors
+Deven Castoria
+Aaron Corbett
+Jared Elliott
+
+## Contributions

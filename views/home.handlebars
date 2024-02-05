@@ -1,9 +1,14 @@
-{{> cars this}}
-
+{{> cars vehicleData }}
 
 <!-- Location(s) View? -->
-
-
+<div class="container">
+  {{#each locData as |loc|}}
+  <p>
+    {{name}}<br />
+    {{address}}
+  {{/each}}
+  </p>
+</div>
 
 <!-- Reviews below here -->
 <section class="container">
