@@ -1,0 +1,21 @@
+<div>
+  {{#each vehicles}}
+    <h2>{{brand}} {{model}}</h2>
+    <p>Year: {{year}}</p>
+    <p>Location ID: {{location_id}}</p>
+  {{/each}}
+</div>
+
+{{#extend 'layout'}}
+  {{#content 'header'}}
+    {{> header}}
+  {{/content}}
+
+  <div>
+    {{#each vehicles}}
+      <h2>{{brand}} {{model}}</h2>
+      <p>Year: {{year}}</p>
+      <p>Location ID: {{location_id}}</p>
+    {{/each}}
+  </div>
+{{/extend}}
