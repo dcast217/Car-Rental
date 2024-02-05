@@ -18,14 +18,14 @@ const { Location, User, Vehicle, Reservation } = require('../../models');
     });
 
 // API GET ALL VEHICLES
-    router.get('/vehicle/', async (req, res) => {
+    router.get('/vehicle', async (req, res) => {
         const dbVehicleData = await Vehicle.findAll({})
+        const vehicleData = dbVehicleData.get({plain: true});
 
-        dbVehicleData===null 
+        vehicleData===null 
             ? res.status(400).json({ message: 'Invalid vehicle id' })
-            : res.status(200).json(dbVehicleData)
+            : res.status(200).json(vehicleData)
     });
-
 
 // API GET ALL LOCATIONS
     router.get('/location/', async (req, res) => {
