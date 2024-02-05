@@ -1,65 +1,45 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection.js');
 const apiRoutes = require('./api/index.js')
-const { User, Location, Vehicle } = require('../models');
 
 //API request go to API file
 router.use('/api', apiRoutes)
 
-// PROFILE(DASHBOARD) ROUTE
-/*
-    This would be shown after login and when clicking on anything
-    that would go to your "account" page.
-*/
-    router.get('/profile', async (req, res) => {
-        const dbUserData = await User.findByPk(4, {
-            include: {
-                model: Location,
-                attributes: ['name']
-            },
-            attributes: {
-                exclude: ['password']
-            }
-        })
-        const userData = dbUserData.get({plain: true});
-        console.log(userData);
-
-        //set authenticated to saved session variable for true/false - Navigation partial shows 'Account' or 'Login'
-        res.render('dashboard', { userData, authenticated: true, layout: 'main'});
-    });
-// END PROFILE(DASHBOARD) ROUTE
-
-
-// HOMEPAGE ROUTE
-    router.get('/', async (req, res) => {
-        const dbLocData = await Location.findAll()
-        const locData = dbLocData.map((data) => data.get({ plain: true }));
-        console.log(locData);
-        res.render('home', { locData , authenticated: false, layout: 'hero'});
-    });
-// END HOMEPAGE ROUTE
-
-
-
-// LOGIN ROUTE
-router.get('/login', async (req, res) => {
-
-    res.render('form', { form: 'login', layout: 'main'});
+router.get('/profile', async (req, res) => {
+    res.render('dashboard', {layout: 'main'});
 });
-// END LOGIN ROUTE
 
-
-// SIGNUP ROUTE
-router.get('/signup', async (req, res) => {
-
-    res.render('form', {form: 'signup', layout: 'main'});
+router.get('/', async (req, res) => {
+    res.render('home', {layout: 'hero'});
 });
-// END SIGNUP ROUTE
 
-// CATCH ALL FOR ROUTING
-    router.get('*', (req, res) => {
-        res.render('home', { layout: 'error' })
-    });
-// END CATCH ALL
 
+// Route to render the login form
+router.get('/login', (req, res) => {
+  res.render('form', {form: 'login', layout: 'main'});
+});
+
+
+// Set up your route
+router.get('/vehicles', (req, res) => {
+  const carData = [
+    // Vehicle data goes here
+  ];
+  
+  res.render('vehicles', { vehicles: carData });
+});
+
+// Handle form submission
+router.post('/signup', (req, res) => {
+  const { username, password } = req.body;
+  
+  // Perform authentication logic here
+  
+  // Redirect to a different page after successful login
+  res.render('form', {form: 'signup', layout: 'main'});
+});
+
+// Catch all for routing
+router.get('*', (req, res) => {
+    res.status(404).json({message: 'Invalid route'})
+});
 module.exports = router;
