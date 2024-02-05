@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { NOW } = require('sequelize');
 const { Location, User, Vehicle, Reservation } = require('../models');
 
-router.get('/user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     /*
         NEED TO INCLUDE VEHICLE MODEL AND CHECK IF USER_ID MATCHES ID to see if they have a "reservation"
     */
@@ -18,7 +18,7 @@ router.get('/user/:id', async (req, res) => {
 });
 
 // USER: DELETE USER
-router.delete('/user/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const dbUserData = await User.destroy({
         where: { id: req.params.id }
     })
@@ -30,7 +30,7 @@ router.delete('/user/:id', async (req, res) => {
 });
 
 // USER: UPDATE INFORMATION
-router.put('/user/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     //NEED TO VALIDATE BODY INFORMATION
     const dbUserData = await User.update(req.body, {
         where: { id: req.params.id }
