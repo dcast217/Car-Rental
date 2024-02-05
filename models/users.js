@@ -14,16 +14,19 @@ User.init({
     autoIncrement: true
   },
   name: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(45),
     allowNull: false
   },
   email: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true,
     validate: {
       isEmail: true,
     },
+  },
+  dob: {
+    type: DataTypes.DATE,
+    allowNull: true,
   },
   address: {
     type: DataTypes.STRING,
@@ -43,6 +46,17 @@ User.init({
     freezeTableName: true,
     underscored: true,
     modelName: 'user',
+  }, 
+  {
+    indexes: [{ unique: true, fields: ["email"] }],
+    /* 
+      fix for too many keys err
+      -------------------------
+      code: 'ER_TOO_MANY_KEYS'
+      errno: 1069
+      sqlState: '42000'
+      sqlMessage: 'Too many keys specified; max 64 keys allowed'
+    */
   }
 
 );

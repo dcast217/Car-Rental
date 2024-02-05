@@ -2,12 +2,13 @@
 const Location = require('./locations');
 const User = require('./users');
 const Vehicle = require('./vehicle');
+const Reservation = require('./reservation');
 
 // Define the associations
-// Location.hasMany(User, { foreignKey: 'locationId' });
-// User.belongsTo(Location, { foreignKey: 'locationId' });
+ User.belongsTo(Location, { foreignKey: 'location_id' });
+ Location.hasMany(User, { foreignKey: 'id' })
 
-// Location.hasMany(Vehicle, { foreignKey: 'locationId' });
-// Vehicle.belongsTo(Location, { foreignKey: 'locationId' });
-
+ Vehicle.hasOne(Location, { foreignKey: 'vehicle_id' })
+ Location.hasMany(Vehicle, { foreignKey: 'id' })
+ 
 module.exports = { User, Location, Vehicle };
