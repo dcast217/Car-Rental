@@ -2,6 +2,16 @@ const router = require('express').Router();
 const sequelize = require('../config/connection.js');
 const { NOW } = require('sequelize');
 const { Location, User, Vehicle, Reservation } = require('../models');
+const locationRoute = require('./location.js');
+const vehicleRoute = require('./vehicle.js');
+const userRoute = require('./user.js');
+const reservationRoute = require('./reservation.js');
+
+
+router.get('/location', locationRoute)
+router.get('/user', userRoute)
+router.get('/vehicles', vehicleRoute)
+router.get('/reservation', reservationRoute)
 
 // PROFILE(DASHBOARD) ROUTE
     router.get('/profile', async (req, res) => {
@@ -43,18 +53,6 @@ router.get('/signup', async (req, res) => {
     res.render('form', {form: 'signup', layout: 'main'});
 });
 // END SIGNUP ROUTE
-
-//Show All Vehicles Route
-router.get('/vehicles', async (req, res) => {
-    const dbVehicleData = await Vehicle.findAll()
-    const vehicleData = dbVehicleData.map((data) => data.get({plain: true}))
-
-    console.log(vehicleData)
-    vehicleData===null 
-        ? res.render('home', {message: 'Invalid vehicle id', layout: 'error' })
-        : res.render('vehicle', {vehicleData, layout: 'main'})
-});
-//END show all vehicles
 
 
 // CATCH ALL FOR ROUTING
