@@ -19,7 +19,7 @@ router.get('/:id', async (req, res) => {
 
     locationData===null 
         ? res.render('home', {message: 'No reservations found.', layout: 'error' })
-        : res.render('location', {locationData, layout: 'main'})
+        : res.render('location', {locationData, authenticated: req.session.authenticated, layout: 'main'})
 
 });
 

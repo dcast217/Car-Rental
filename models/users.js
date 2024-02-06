@@ -30,17 +30,23 @@ User.init({
   },
   location_id: {
     type: DataTypes.INTEGER,
-    allowNull: true
+    allowNull: true,
+    references: {
+      model: 'location',
+      key: 'id'
+    }
   },
   address: {
     type: DataTypes.STRING,
   },
   password: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(99),
     allowNull: false,
     validate: { 
-      len: [6],
-      msg: 'Password must be 6 characters or greater.'
+      len: {
+        args: [6,99],
+        msg: 'Password must be 6 characters or greater.'
+      }
     },
   },
   }, 

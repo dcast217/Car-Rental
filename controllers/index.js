@@ -52,14 +52,14 @@ router.get('/locations', async (req, res) => {
 
 // RESERVATION: Get Reservation(s)
 router.get('/reservations', withAuth, async (req, res) => {
-    const dbData = await Reservation.findAll({
+    const dbReservationData = await Reservation.findAll({
         attributes: ['id', 'check_out', 'check_in'],
         include: [{
             model: User,
-            attributes: ['name'],
+            attributes: ['name']
         },
         {
-            model: Vehicle, 
+            model: Vehicle,
             attributes: ['brand', 'model', 'year']
         },
         {
@@ -67,10 +67,12 @@ router.get('/reservations', withAuth, async (req, res) => {
             attributes: ['name', 'address']
         }]
     })
-    console.log(dbData);
-    dbData===null 
-    ? res.status(400).json({ authenticated: req.session.authenticated, message: 'Invalid reservation id' })
-    : res.status(200).json(dbData)
+
+    const reservationData = dbReservationData.map((data) => data.get({ plain: true }));
+    console.log(reservationData)
+    reservationData===null 
+        ? res.render('home', {authenticated: req.session.authenticated, message: 'No reservations found.', layout: 'error' })
+        : res.render('reservation', {reservationData, authenticated: req.session.authenticated, layout: 'main'})
 })
 
 

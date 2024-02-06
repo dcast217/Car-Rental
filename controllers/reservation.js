@@ -24,8 +24,8 @@ router.get('/:id', async (req, res) => {
     const reservationData = dbReservationData.map((data) => data.get({ plain: true }));
     console.log(reservationData)
     reservationData===null 
-        ? res.render('home', {message: 'No reservations found.', layout: 'error' })
-        : res.render('reservation', {reservationData, layout: 'main'})
+        ? res.render('home', {authenticated: req.session.authenticated, message: 'No reservations found.', layout: 'error' })
+        : res.render('reservation', {reservationData, authenticated: req.session.authenticated, layout: 'main'})
 })
 
 

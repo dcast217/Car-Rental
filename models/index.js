@@ -6,7 +6,7 @@ const Reservation = require('./reservation');
 
 // Define the associations
  User.belongsTo(Location, { foreignKey: 'location_id' });
- Location.hasMany(User, { foreignKey: 'id' })
+ Location.hasMany(User, { foreignKey: 'location_id' })
 
  Vehicle.belongsTo(Location, { foreignKey: 'location_id' })
  Location.hasMany(Vehicle, { foreignKey: 'location_id' })
