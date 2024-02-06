@@ -28,7 +28,7 @@ router.get('/vehicles', async (req, res) => {
     console.log(vehicleData)
     vehicleData===null 
         ? res.render('home', {authenticated: req.session.authenticated, message: 'No vehicles found.', layout: 'error' })
-        : res.render('vehicle', {vehicleData, authenticated: req.session.authenticated, layout: 'main'})
+        : res.render('vehicle', {vehicleData, authenticated: req.session.authenticated, layout: 'hero'})
 });
 //END show all vehicles
 
@@ -46,7 +46,7 @@ router.get('/locations', async (req, res) => {
 
     locData===null 
     ? res.render('home', {authenticated: req.session.authenticated, message: 'No locations found.', layout: 'error' })
-    : res.render('locations', {locData, authenticated: req.session.authenticated,  layout: 'main'})
+    : res.render('locations', {locData, authenticated: req.session.authenticated,  layout: 'hero'})
 });
 
 

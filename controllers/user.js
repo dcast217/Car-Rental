@@ -2,14 +2,10 @@ const router = require('express').Router();
 const sequelize = require('../config/connection.js');
 const { NOW } = require('sequelize');
 const { Location, User, Vehicle, Reservation } = require('../models');
-const locationRoute = require('./location.js');
-const vehicleRoute = require('./vehicle.js');
-const userRoute = require('./user.js');
-const reservationRoute = require('./reservation.js');
 const withAuth = require('../utils/auth');
 
 // USER: DELETE USER
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
     const dbUserData = await User.destroy({
         where: { id: req.params.id }
     })
@@ -21,7 +17,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // USER: UPDATE INFORMATION
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
     //NEED TO VALIDATE BODY INFORMATION
     const dbUserData = await User.update(req.body, {
         where: { id: req.params.id }
