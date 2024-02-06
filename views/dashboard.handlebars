@@ -2,12 +2,34 @@
 
 <div class="container">
     <br />
-    <h3>Welcome {{userData.name}}! - <a href="/reservation/{{userData.id}}">View Reservations</a></h3>
+    <h3>Welcome {{userData.name}}!</h3>
+    <small><a href="/reservations">View Reservations</a> | <a href="/reservation/create">Create
+            Reservation</a></small>
 
-    <p>Review your information below
-        <br /><strong>Address</strong>: {{userData.address}}
-        <br /><strong>DOB</strong>: {{format_date userData.dob}}
-        <br /><strong>Home Location</strong>: <a href="./location/{{userData.location.id}}">{{userData.location.name}}</a>
-    </p>
+    <hr />
 
+    <form id="update-user" data-user="{{userData.id}}" class="form w-50">
+        <p>Review your information below
+            <div class="form-group">
+                <label for="email"><strong>Email Address:</strong></label>
+                <input type="text" id="email" name="email" class="form-control" required value="{{userData.email}}">
+            </div>
+
+            <div class="form-group">
+                <label for="address"><strong>Address:</strong></label>
+                <input type="text" id="address" name="address" class="form-control" required value="{{userData.address}}">
+            </div>
+
+            <div class="form-group">
+                <label for="dob"><strong>Date of Birth:</strong></label>
+                <input type="date" id="dob" name="dob" class="form-control" required value="{{form_date userData.dob}}">
+            </div>
+
+            <br /><strong>Home Location</strong>: <a href="./location/{{userData.location.id}}">{{userData.location.name}}</a>
+
+            <br /><button id="btn-update-user" class="btn btn-warning btn-xl mt-3" type="submit">Save Changes</button>
+    </form>
 </div>
+
+
+<script src="../assets/js/update.js"></script>

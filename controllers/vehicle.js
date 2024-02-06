@@ -1,6 +1,9 @@
 const router = require('express').Router();
+const sequelize = require('../config/connection.js');
 const { NOW } = require('sequelize');
 const { Location, User, Vehicle, Reservation } = require('../models');
+const withAuth = require('../utils/auth');
+
 
 
 // API GET SINGLE VEHICLE

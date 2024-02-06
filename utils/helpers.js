@@ -5,8 +5,11 @@ module.exports = {
 
     format_date: (date) => {
       return `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${
-        new Date(date).getFullYear() + 5
+        new Date(date).getFullYear()
       }`;
+    },
+    form_date: (date) => {
+      return new Date(date).toISOString().substr(0, 10);
     },
     //Add additional helpers if needed for handlebars.js
     have_cars: (data) => {

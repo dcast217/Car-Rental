@@ -1,9 +1,14 @@
 <div class="container">
-  {{ reservationData.user.name }}
 
   {{#each reservationData as |reservation|}}
-  <p><strong>Vehicle</strong>: {{ vehicle.brand }} {{ vehicle.model }}</p>
-  <p><strong>Location</strong>: {{ location.name }} | {{ location.address }}</p>
-  <p>Reserved from: {{ format_date check_out }} to {{ format_date check_in }}</p>
+    {{#if @first}} <h3> {{user.name }}'s Reservations</h3> <br />{{/if}}
+      <h5>Reservation from: {{ format_date check_out }} to {{ format_date check_in }}</h5>
+      <span><strong>Vehicle</strong>: {{ vehicle.brand }} {{ vehicle.model }}</span>
+      <br />
+      <span><strong>Location</strong>: {{ location.name }} | {{ location.address }}</span>
+      <br />
+      <br />
+      <a href="/reservation/delete/{{id}}">Delete Record?</a>
+  <hr />
   {{/each}}
 </div>

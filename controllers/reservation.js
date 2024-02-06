@@ -1,6 +1,21 @@
 const router = require('express').Router();
+const sequelize = require('../config/connection.js');
 const { NOW } = require('sequelize');
 const { Location, User, Vehicle, Reservation } = require('../models');
+const withAuth = require('../utils/auth');
+
+
+router.get('/create', withAuth, async (req, res) => {
+    const dbData = await Vehicle.findAll({
+        include: {
+            model: Location
+        }
+    })
+
+    const vehicleData = dbData.map((data) => data.get({ plain: true }));
+
+    res.render('reserve', {vehicleData, layout: 'main'})
+})
 
 // RESERVATION: Get Reservation(s) by User ID
 router.get('/:id', async (req, res) => {
@@ -24,8 +39,8 @@ router.get('/:id', async (req, res) => {
     const reservationData = dbReservationData.map((data) => data.get({ plain: true }));
     console.log(reservationData)
     reservationData===null 
-        ? res.render('home', {message: 'No reservations found.', layout: 'error' })
-        : res.render('reservation', {reservationData, layout: 'main'})
+        ? res.render('home', {authenticated: req.session.authenticated, message: 'No reservations found.', layout: 'error' })
+        : res.render('reservation', {reservationData, authenticated: req.session.authenticated, layout: 'main'})
 })
 
 
@@ -35,22 +50,24 @@ router.put('/:id', async (req, res) => {
 })
 
 // RESERVATION: Delete Reservation
-router.delete('/:id', async (req, res) => {
+router.get('/delete/:id', async (req, res) => {
     const dbReservation = await Reservation.destroy({
         where: { id: req.params.id }
     })
 //Returns 200 status if record deleted, 400 status if no record deleted
 //Records = value of records deleted | 1 deleted or 0 deleted
     dbReservation > 0
-        ? res.status(200).json({ records: dbReservation })
-        : res.status(400).json({ records: dbReservation })
+        ? res.redirect('/reservations')
+        : res.render('home', {authenticated: req.session.authenticated, message: 'No reservation found.', layout: 'error' })
 })
 
 // RESERVATION : Create Reservation
-router.post('', async (req, res) => {
+router.post('/', async (req, res) => {
+console.log("INFO", req.body);
+
 const dbData = await Reservation.create(req.body)    
 
-res.status(200).json(dbData)
+    res.redirect('/reservations')
 })
 
 module.exports = router;

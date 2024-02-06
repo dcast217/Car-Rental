@@ -3,7 +3,7 @@
 </h3>
 
 
-<form action="/signup" method="POST">
+<form action="/user" method="POST">
   <div class="form-group">
     <label for="name">First & Last Name:</label>
     <input type="text" id="name" name="name" class="form-control" required>
@@ -19,17 +19,22 @@
     <input type="password" id="password" name="password" class="form-control" required>
   </div>
 
+<div class="form-group">
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" class="form-control" required>
+  </div>
+
   <div class="form-group">
     <div>
       <label for="dob">Date Of Birth:</label>
-      <input type="text" id="dob" name="dob" class="form-control" required>
+      <input type="date" id="dob" name="dob" class="form-control" required>
     </div>
   <br />
     <div>
       <label for="locale">Home Location:</label>
-        <select>
-          <option>Location 1</option>
-          <option>Location 2</option>
+        <select name="location_id" id="location_id">
+          <option value='1'>Location 1</option>
+          <option value='2'>Location 2</option>
         </select>
     </div>
   </div>

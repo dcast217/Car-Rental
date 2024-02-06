@@ -1,10 +1,11 @@
-// USER: GET INFORMATION
 const router = require('express').Router();
+const sequelize = require('../config/connection.js');
 const { NOW } = require('sequelize');
 const { Location, User, Vehicle, Reservation } = require('../models');
+const withAuth = require('../utils/auth');
 
 // USER: DELETE USER
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
     const dbUserData = await User.destroy({
         where: { id: req.params.id }
     })
@@ -16,7 +17,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // USER: UPDATE INFORMATION
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
     //NEED TO VALIDATE BODY INFORMATION
     const dbUserData = await User.update(req.body, {
         where: { id: req.params.id }
@@ -28,13 +29,22 @@ router.put('/:id', async (req, res) => {
 })
 
 
-router.post('/:id', async (req, res) => {
+router.post('/', async (req, res) => {
     //NEED TO VALIDATE BODY INFORMATION
     const dbUserData = await User.create(req.body)
 
-    dbUserData > 0
-    ? res.status(200).json( {records: dbUserData, data: req.body })
-    : res.status(400).json( {records: dbUserData, data: req.body })
+    req.session.save(() => {
+        req.session.user_id = dbUserData.id;
+        req.session.authenticated = true;
+
+        console.log(req.session.user_id, req.session.authenticated)
+        res.render('home', {authenticated: req.session.authenticated, layout: 'hero'})
+      });
+
+
+    dbUserData != null
+    ? dbUserData
+    : res.render('home', {message: 'No user created found.', layout: 'error' })
 })
 
 
