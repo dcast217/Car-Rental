@@ -2,7 +2,7 @@
   {{#each vehicleData as |car|}}
   <p>
     {{brand}}<br />
-    {{make}}
+    {{model}}
   {{/each}}
   </p>
 </div>
@@ -32,7 +32,9 @@
     {{#each vehicleData as |car|}}
       <p>
         <span class="brand">{{car.brand}}</span><br />
-        {{car.make}}
+        {{car.model}}
+        {{car.year}}
+        {{car.id}}
       </p>
     {{/each}}
   </div>
