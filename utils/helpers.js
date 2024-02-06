@@ -15,6 +15,10 @@ module.exports = {
     have_cars: (data) => {
       console.log(data);
       data > 0 ? true : false;
+    },
+
+    lower_case: (data) => {
+      return data.toLowerCase();
     }
     
 };
