@@ -15,12 +15,18 @@ router.use('/reservation', reservationRoute)
 
 //Show All Vehicles Route
 router.get('/vehicles', async (req, res) => {
-    const dbVehicleData = await Vehicle.findAll()
+    const dbVehicleData = await Vehicle.findAll({
+        order: ['location_id'],
+        include: {
+            model: Location,
+            attributes: ['name']
+        }
+    })
     const vehicleData = dbVehicleData.map((data) => data.get({plain: true}))
 
     console.log(vehicleData)
     vehicleData===null 
-        ? res.render('home', {message: 'Invalid vehicle id', layout: 'error' })
+        ? res.render('home', {message: 'No vehicles found.', layout: 'error' })
         : res.render('vehicle', {vehicleData, layout: 'main'})
 });
 //END show all vehicles
@@ -35,14 +41,16 @@ router.get('/locations', async (req, res) => {
         }
     })
 
-    dbLocationData===null 
-        ? res.status(400).json({ message: 'Invalid location id' })
-        : res.status(200).json(dbLocationData)
+    const locData = dbLocationData.map((data) => data.get({plain: true}))
+
+    locData===null 
+    ? res.render('home', {message: 'No locations found.', layout: 'error' })
+    : res.render('locations', {locData, layout: 'main'})
 });
 
 
 // RESERVATION: Get Reservation(s)
-router.get('/reservation', async (req, res) => {
+router.get('/reservations', async (req, res) => {
     const dbData = await Reservation.findAll({
         attributes: ['id', 'check_out', 'check_in'],
         include: [{
@@ -58,7 +66,7 @@ router.get('/reservation', async (req, res) => {
             attributes: ['name', 'address']
         }]
     })
-
+    console.log(dbData);
     dbData===null 
     ? res.status(400).json({ message: 'Invalid reservation id' })
     : res.status(200).json(dbData)
@@ -70,7 +78,7 @@ router.get('/reservation', async (req, res) => {
         const dbUserData = await User.findByPk(1, {
             include: {
                 model: Location,
-                attributes: ['name']
+                attributes: ['id', 'name']
             },
             attributes: {
                 exclude: ['password']
@@ -78,8 +86,16 @@ router.get('/reservation', async (req, res) => {
         })
         const userData = dbUserData.get({plain: true});
 
+        const dbReservationData = await Reservation.findOne({
+            where: {
+                user_id: 1
+            }
+        })
+
+        const reservationData = dbReservationData.get({plain: true});
+
         //set authenticated to saved session variable for true/false - Navigation partial shows 'Account' or 'Login'
-        res.render('dashboard', { userData, authenticated: true, layout: 'main'});
+        res.render('dashboard', { userData, reservationData, authenticated: true, layout: 'main'});
     });
 // END PROFILE(DASHBOARD) ROUTE
 
@@ -95,14 +111,14 @@ router.get('/reservation', async (req, res) => {
 // LOGIN ROUTE
 router.get('/login', async (req, res) => {
 
-    res.render('form', { form: 'login', layout: 'main'});
+    res.render('form', { form: true, layout: 'main'});
 });
 // END LOGIN ROUTE
 
 // SIGNUP ROUTE
 router.get('/signup', async (req, res) => {
 
-    res.render('form', {form: 'signup', layout: 'main'});
+    res.render('form', {form: false, layout: 'main'});
 });
 // END SIGNUP ROUTE
 

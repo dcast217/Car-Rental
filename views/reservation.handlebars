@@ -1,0 +1,9 @@
+<div class="container">
+  {{ reservationData.user.name }}
+
+  {{#each reservationData as |reservation|}}
+  <p><strong>Vehicle</strong>: {{ vehicle.brand }} {{ vehicle.model }}</p>
+  <p><strong>Location</strong>: {{ location.name }} | {{ location.address }}</p>
+  <p>Reserved from: {{ format_date check_out }} to {{ format_date check_in }}</p>
+  {{/each}}
+</div>

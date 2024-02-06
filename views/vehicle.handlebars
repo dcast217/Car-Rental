@@ -2,7 +2,11 @@
   {{#each vehicleData as |car|}}
   <p>
     {{brand}}<br />
-    {{make}}
+    {{model}}<br />
+    {{year}}
+    {{location_id}}
+    <br />
+    <img src="./assets/img/{{model}}/{{model}}.png" class="img">
   {{/each}}
   </p>
 </div>

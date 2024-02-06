@@ -11,8 +11,9 @@
     <style>
         body { font-family: system-ui, sans-serif; }
         h1 { font-family: 'Orbitron', sans-serif; }
-        .card-columns {
-            @include media-breakpoint-only(lg) { column-count: 4; }
+
+        @include media-breakpoint-down(sm) {
+            .tag-line { background-color: #000; }
         }
     </style>
 </head>
@@ -25,7 +26,7 @@
     <div class="row">
         <div class="col-md-4 col-lg-3">
             <h2 class="font-weight-bold text-white">Thrill Seeking<br />or Midlife Crisis.</h2>
-            <small class="text-muted">We're here for you either way. Enjoy a bit of luxury when you rent from our fleet of
+            <small class="text-muted tag-line">We're here for you either way. Enjoy a bit of luxury when you rent from our fleet of
                 high-end sports cars.</small>
         </div>
     </div>
