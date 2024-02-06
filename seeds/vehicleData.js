@@ -22,7 +22,7 @@ const carData = [
   },
   {
     "brand": "Porsche",
-    "model": "718 Cayman GT4 RS",
+    "model": "GT4RS",
     "year": "2023",
     "location_id": 1
   },

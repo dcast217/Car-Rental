@@ -1,0 +1,13 @@
+<br /><br />
+
+<div class="container">
+    <h3>{{locationData.name}}</h3>
+    <small>{{locationData.address}}</small>
+
+    <br /><br />
+
+    <h4>Vehicles available at this location:</h4>
+    {{#each locationData.vehicles as |vehicle|}}
+        <p><a href="/vehicle/{{id}}">{{brand}} - {{model}} - {{year}}</a></p>
+    {{/each}}
+</div>

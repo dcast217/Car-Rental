@@ -9,14 +9,18 @@ router.get('/:id', async (req, res) => {
         where: { id: req.params.id },
         include: { 
             model: Vehicle,
-            attributes: ['brand', 'model', 'year']
+            attributes: ['id', 'brand', 'model', 'year']
         }
     })
-    console.log('here')
-    dbLocationData===null 
-        ? res.status(400).json({ message: 'Invalid location id' })
-        : res.status(200).json(dbLocationData)
-});
 
+    const locationData = dbLocationData.get({plain: true});
+
+    console.log(locationData)
+
+    locationData===null 
+        ? res.render('home', {message: 'No reservations found.', layout: 'error' })
+        : res.render('location', {locationData, layout: 'main'})
+
+});
 
 module.exports = router;
