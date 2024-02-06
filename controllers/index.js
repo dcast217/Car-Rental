@@ -163,9 +163,9 @@ router.get('/signup', async (req, res) => {
 
 
 // CATCH ALL FOR ROUTING
-    router.get('*', (req, res) => {
-        res.render('home', { authenticated: req.session.authenticated, layout: 'error' })
-    });
+    // router.get('*', (req, res) => {
+    //     res.render('home', { authenticated: req.session.authenticated, layout: 'error' })
+    // });
 // END CATCH ALL
 
 module.exports = router;
