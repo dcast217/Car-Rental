@@ -6,6 +6,7 @@ const locationRoute = require('./location.js');
 const vehicleRoute = require('./vehicle.js');
 const userRoute = require('./user.js');
 const reservationRoute = require('./reservation.js');
+const withAuth = require('../utils/auth');
 
 
 router.use('/location', locationRoute)
@@ -26,8 +27,8 @@ router.get('/vehicles', async (req, res) => {
 
     console.log(vehicleData)
     vehicleData===null 
-        ? res.render('home', {message: 'No vehicles found.', layout: 'error' })
-        : res.render('vehicle', {vehicleData, layout: 'main'})
+        ? res.render('home', {authenticated: req.session.authenticated, message: 'No vehicles found.', layout: 'error' })
+        : res.render('vehicle', {vehicleData, authenticated: req.session.authenticated, layout: 'main'})
 });
 //END show all vehicles
 
@@ -44,13 +45,13 @@ router.get('/locations', async (req, res) => {
     const locData = dbLocationData.map((data) => data.get({plain: true}))
 
     locData===null 
-    ? res.render('home', {message: 'No locations found.', layout: 'error' })
-    : res.render('locations', {locData, layout: 'main'})
+    ? res.render('home', {authenticated: req.session.authenticated, message: 'No locations found.', layout: 'error' })
+    : res.render('locations', {locData, authenticated: req.session.authenticated,  layout: 'main'})
 });
 
 
 // RESERVATION: Get Reservation(s)
-router.get('/reservations', async (req, res) => {
+router.get('/reservations', withAuth, async (req, res) => {
     const dbData = await Reservation.findAll({
         attributes: ['id', 'check_out', 'check_in'],
         include: [{
@@ -68,14 +69,14 @@ router.get('/reservations', async (req, res) => {
     })
     console.log(dbData);
     dbData===null 
-    ? res.status(400).json({ message: 'Invalid reservation id' })
+    ? res.status(400).json({ authenticated: req.session.authenticated, message: 'Invalid reservation id' })
     : res.status(200).json(dbData)
 })
 
 
 // PROFILE(DASHBOARD) ROUTE
-    router.get('/profile', async (req, res) => {
-        const dbUserData = await User.findByPk(1, {
+    router.get('/profile', withAuth, async (req, res) => {
+        const dbUserData = await User.findByPk(req.session.user_id, {
             include: {
                 model: Location,
                 attributes: ['id', 'name']
@@ -95,7 +96,7 @@ router.get('/reservations', async (req, res) => {
         const reservationData = dbReservationData.get({plain: true});
 
         //set authenticated to saved session variable for true/false - Navigation partial shows 'Account' or 'Login'
-        res.render('dashboard', { userData, reservationData, authenticated: true, layout: 'main'});
+        res.render('dashboard', { userData, reservationData, authenticated: req.session.authenticated , layout: 'main'});
     });
 // END PROFILE(DASHBOARD) ROUTE
 
@@ -104,28 +105,64 @@ router.get('/reservations', async (req, res) => {
         const dbLocData = await Location.findAll()
         const locData = dbLocData.map((data) => data.get({ plain: true }));
         console.log(locData);
-        res.render('home', { locData , authenticated: false, layout: 'hero'});
+        res.render('home', { locData , authenticated: req.session.authenticated , layout: 'hero'});
     });
 // END HOMEPAGE ROUTE
 
 // LOGIN ROUTE
 router.get('/login', async (req, res) => {
 
-    res.render('form', { form: true, layout: 'main'});
+    res.render('form', { form: true, authenticated: req.session.authenticated, layout: 'main'});
 });
 // END LOGIN ROUTE
+
+
+router.post('/login', async (req, res) => {
+    try {
+      // Find the user who matches the posted e-mail address
+      const userData = await User.findOne({ where: { email: req.body.email } });
+  
+      if (!userData) {
+        res
+          .status(400)
+          .json({ message: 'Incorrect email or password, please try again' });
+        return;
+      }
+  
+      // Verify the posted password with the password store in the database
+      //const validPassword = await userData.validatePW(req.body.password);
+  
+    //   if (!validPassword) {
+    //     res
+    //       .status(400)
+    //       .json({ message: 'Incorrect email or password, please try again' });
+    //     return;
+    //   }
+  
+      // Create session variables based on the logged in user
+      req.session.save(() => {
+        req.session.user_id = userData.id;
+        req.session.authenticated = true;
+        
+        res.render('home', {authenticated: req.session.authenticated, layout: 'hero'})
+      });
+  
+    } catch (err) {
+        res.render('home', {authenticated: req.session.authenticated, layout: 'error'})
+    }
+  });
 
 // SIGNUP ROUTE
 router.get('/signup', async (req, res) => {
 
-    res.render('form', {form: false, layout: 'main'});
+    res.render('form', {form: false, authenticated: req.session.authenticated, layout: 'main'});
 });
 // END SIGNUP ROUTE
 
 
 // CATCH ALL FOR ROUTING
     router.get('*', (req, res) => {
-        res.render('home', { layout: 'error' })
+        res.render('home', { authenticated: req.session.authenticated, layout: 'error' })
     });
 // END CATCH ALL
 

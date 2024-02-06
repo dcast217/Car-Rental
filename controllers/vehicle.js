@@ -10,8 +10,7 @@ router.get('/:id', async (req, res) => {
         include: {
             model: Location,
             attributes: ['name', 'address']
-        },
-        order: [Location, 'id', 'ASC']
+        }
     })
 
     dbVehicleData===null 
